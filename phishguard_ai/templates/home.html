@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="hero glass p-5 rounded-4 text-center position-relative overflow-hidden">
+  <div class="cyber-grid"></div>
+  <h1 class="display-4 fw-bold neon-text mb-3">Intelligent Phishing URL Detection</h1>
+  <p class="lead text-muted">Hybrid rule-engine + threat intelligence to keep you safe.</p>
+  <div class="mt-4">
+    <a href="{% url 'scan' %}" class="btn btn-lg btn-neon">Scan a URL Now</a>
+  </div>
+</section>
+{% endblock %}
+

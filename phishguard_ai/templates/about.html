@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="row justify-content-center">
+  <div class="col-md-10 col-lg-8">
+    <div class="glass p-4 rounded-4">
+      <h2 class="neon-text mb-3">About PhishGuard AI</h2>
+      <p class="text-muted">PhishGuard AI is a hybrid phishing URL detector for academic and demo use. It combines a rule-based engine with external threat intelligence to estimate risk and provide actionable guidance.</p>
+      <ul class="small">
+        <li>Rule engine checks: HTTPS, IP-based URLs, length, subdomains, and keywords.</li>
+        <li>Threat intelligence via Google Safe Browsing.</li>
+        <li>Privacy-friendly: only URLs are evaluated; no credentials collected.</li>
+      </ul>
+    </div>
+  </div>
+</div>
+{% endblock %}
+

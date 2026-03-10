@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="row justify-content-center">
+  <div class="col-md-10 col-lg-8">
+    <div class="glass p-4 rounded-4">
+      <h2 class="mb-3 neon-text">Scan Result</h2>
+      <div class="mb-2 small text-muted">URL: <span class="text-info">{{ item.url }}</span></div>
+      <div class="risk-meter my-4">
+        <div class="meter-track">
+          <div class="meter-fill" data-score="{{ item.final_score }}"></div>
+        </div>
+        <div class="text-center mt-2">
+          <span class="badge fs-6" id="risk-label">{{ item.risk_label }} ({{ item.final_score }}/100)</span>
+        </div>
+      </div>
+      <div class="row g-3">
+        <div class="col-md-6">
+          <div class="glass inner p-3 rounded-4">
+            <h5 class="mb-2">Detection Summary</h5>
+            <ul class="list-unstyled small">
+              <li>Rule-based score: <span class="text-info">{{ item.rule_score }}</span></li>
+              <li>API-based score: <span class="text-info">{{ item.api_score }}</span></li>
+              <li>API status: <span class="text-info">{{ item.api_status|default:"-" }}</span></li>
+              <li>API verdict: <span class="text-info">{{ item.api_verdict|default:"-" }}</span></li>
+            </ul>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="glass inner p-3 rounded-4">
+            <h5 class="mb-2">Detected Issues</h5>
+            {% if issues %}
+              <ul class="small">
+              {% for x in issues %}
+                <li>{{ x }}</li>
+              {% endfor %}
+              </ul>
+            {% else %}
+              <div class="text-muted small">No significant rule-based issues detected.</div>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+      <div class="glass inner p-3 rounded-4 mt-3">
+        <h5 class="mb-2">Safety Recommendations</h5>
+        <ul class="small">
+          <li>Verify the domain spelling and check for HTTPS.</li>
+          <li>Never enter credentials on unfamiliar pages.</li>
+          <li>Hover links to preview destination before clicking.</li>
+          <li>Report suspicious URLs to your security team.</li>
+        </ul>
+      </div>
+      <div class="mt-4">
+        <a class="btn btn-outline-neon" href="{% url 'scan' %}">Scan Another URL</a>
+        <a class="btn btn-neon" href="{% url 'dashboard' %}">View Dashboard</a>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
+

@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="row justify-content-center">
+  <div class="col-md-10 col-lg-8">
+    <div class="glass p-4 rounded-4">
+      <h2 class="neon-text mb-3">Threat Intelligence Status</h2>
+      <p class="text-muted small">Checks Google Safe Browsing using a harmless test URL.</p>
+      <ul class="small">
+        <li>Test URL: <span class="text-info">{{ test_url }}</span></li>
+        <li>Status: <span class="text-info">{{ status }}</span></li>
+        <li>API Score: <span class="text-info">{{ score }}</span></li>
+        <li>Verdict: <span class="text-info">{{ verdict|default:"-" }}</span></li>
+      </ul>
+      <div class="mt-3">
+        <a class="btn btn-neon" href="{% url 'dashboard' %}">Back to Dashboard</a>
+        <a class="btn btn-outline-neon" href="{% url 'scan' %}">Scan a URL</a>
+      </div>
+    </div>
+  </div>
+{% endblock %}
+

@@ -1,0 +1,74 @@
+:root{
+  --bg:#0b0f19;
+  --card: rgba(255,255,255,.06);
+  --stroke: rgba(255,255,255,.15);
+  --neon:#00ffcc;
+  --neon2:#4facfe;
+  --danger:#ff416c;
+  --warn:#ffc107;
+  --text:#cbd5e1;
+}
+html,body{background:var(--bg);color:var(--text);min-height:100%}
+.cyber-bg{
+  background: linear-gradient(135deg,#091017,#0b0f19 35%,#0c1324 100%);
+  position: relative;
+}
+.glass{
+  background: var(--card);
+  border: 1px solid var(--stroke);
+  box-shadow: 0 10px 30px rgba(0,0,0,.4);
+  backdrop-filter: blur(12px);
+}
+.glass-nav, .glass-footer{
+  background: linear-gradient(90deg, rgba(0,0,0,.45), rgba(0,0,0,.25));
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--stroke);
+}
+.neon-brand{color: var(--neon)}
+.neon-text{color: var(--neon)}
+.link-neon{color: var(--neon2); text-decoration: none;}
+.link-neon:hover{color: var(--neon)}
+.btn-neon{
+  position: relative;
+  color: #001a16;
+  background: linear-gradient(90deg, var(--neon), #00b8ff);
+  border: none;
+  text-shadow: 0 0 8px rgba(0,0,0,.4);
+}
+.btn-neon:hover{filter: brightness(1.05)}
+.btn-outline-neon{
+  color: var(--neon);
+  border: 1px solid var(--neon);
+  background: transparent;
+}
+.neon-input{
+  background: rgba(255,255,255,.03);
+  border: 1px solid var(--stroke);
+  color: var(--text);
+}
+.neon-input:focus{border-color: var(--neon); box-shadow: 0 0 0 .25rem rgba(0,255,204,.15)}
+.hero{ position: relative; overflow:hidden }
+.cyber-grid{
+  position:absolute; inset:0;
+  background-image: linear-gradient(transparent 24px, rgba(79,172,254,.2) 25px),
+                    linear-gradient(90deg, transparent 24px, rgba(79,172,254,.2) 25px);
+  background-size: 25px 25px;
+  animation: gridmove 12s linear infinite;
+  opacity: .4; pointer-events: none;
+}
+@keyframes gridmove{ from{transform: translateY(0)} to{ transform: translateY(-25px)} }
+.risk-meter .meter-track{
+  height: 16px; background: #1a2333; border-radius: 10px; overflow:hidden;
+  border: 1px solid var(--stroke);
+}
+.risk-meter .meter-fill{
+  height: 100%; width: 0;
+  background: linear-gradient(90deg, #00ffcc 0%, #ffc107 50%, #ff416c 100%);
+  transition: width 1.2s ease-out;
+}
+.loading-overlay{
+  position: fixed; inset: 0; display: flex; align-items: center; justify-content: center;
+  background: rgba(0,0,0,.45); backdrop-filter: blur(3px); z-index: 1000;
+}
+.table-dark{ --bs-table-bg: rgba(255,255,255,.03); --bs-table-striped-bg: rgba(255,255,255,.06) }
+

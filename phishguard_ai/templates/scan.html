@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="row justify-content-center">
+  <div class="col-md-10 col-lg-8">
+    <div class="glass p-4 rounded-4">
+      <h2 class="mb-3 neon-text">URL Scanner</h2>
+      <p class="text-muted">Enter a URL below. We combine local heuristics with Google Safe Browsing.</p>
+      <form method="post" id="scan-form" novalidate>
+        {% csrf_token %}
+        <div class="mb-3">
+          {{ form.url }}
+          {% if form.url.errors %}
+            <div class="text-danger small mt-1">{{ form.url.errors|striptags }}</div>
+          {% endif %}
+        </div>
+        <button class="btn btn-neon btn-lg w-100" type="submit" id="scan-btn">
+          <span class="btn-glow"></span>
+          Scan Now
+        </button>
+      </form>
+      <div id="loading" class="loading-overlay d-none">
+        <div class="spinner-border text-info" role="status"></div>
+        <div class="mt-2 text-info">Analyzing URL...</div>
+      </div>
+    </div>
+  </div>
+  <script>
+    document.getElementById('scan-form')?.addEventListener('submit', function() {
+      document.getElementById('loading')?.classList.remove('d-none');
+    });
+  </script>
+</div>
+{% endblock %}
+

@@ -1,0 +1,75 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="row">
+  <div class="col-12">
+    <div class="glass p-4 rounded-4 mb-3 d-flex align-items-center justify-content-between">
+      <h2 class="neon-text m-0">Dashboard</h2>
+      <form class="d-flex" method="get">
+        <select name="level" class="form-select me-2">
+          <option value="">All levels</option>
+          <option value="Safe" {% if level == "Safe" %}selected{% endif %}>Safe</option>
+          <option value="Suspicious" {% if level == "Suspicious" %}selected{% endif %}>Suspicious</option>
+          <option value="Highly Dangerous" {% if level == "Highly Dangerous" %}selected{% endif %}>Highly Dangerous</option>
+        </select>
+        <button class="btn btn-neon" type="submit">Filter</button>
+      </form>
+    </div>
+  </div>
+  <div class="col-lg-5 order-2 order-lg-1">
+    <div class="glass p-3 rounded-4">
+      <h5 class="mb-3">Scan Statistics</h5>
+      <canvas id="riskChart" height="220"></canvas>
+      <div class="small text-muted mt-2">API response status shown in history table.</div>
+    </div>
+  </div>
+  <div class="col-lg-7 order-1 order-lg-2 mb-3 mb-lg-0">
+    <div class="glass p-3 rounded-4 table-responsive">
+      <h5 class="mb-3">Recent Scans</h5>
+      <table class="table table-dark table-striped table-hover align-middle">
+        <thead>
+          <tr>
+            <th>URL</th>
+            <th>Risk</th>
+            <th>Score</th>
+            <th>Time</th>
+            <th>API</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for x in items %}
+          <tr>
+            <td class="text-truncate" style="max-width: 280px;">
+              <a href="{% url 'result' x.pk %}" class="link-neon">{{ x.url }}</a>
+            </td>
+            <td>{{ x.risk_label }}</td>
+            <td>{{ x.final_score }}</td>
+            <td>{{ x.created_at|date:"Y-m-d H:i" }}</td>
+            <td>{{ x.api_status }}</td>
+          </tr>
+          {% empty %}
+          <tr><td colspan="5" class="text-muted small">No scans yet.</td></tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+{{ chart|json_script:"chart-data" }}
+<script>
+  (function() {
+    const ctx = document.getElementById('riskChart');
+    if (!ctx) return;
+    const data = JSON.parse(document.getElementById('chart-data').textContent);
+    const colors = ['#00ffcc','#ffc107','#ff416c'];
+    new Chart(ctx, {
+      type: 'doughnut',
+      data: {
+        labels: data.labels,
+        datasets: [{ data: data.data, backgroundColor: colors, borderWidth: 0 }]
+      },
+      options: { plugins: { legend: { labels: { color: '#9db1c7' } } } }
+    });
+  })();
+</script>
+{% endblock %}
+
